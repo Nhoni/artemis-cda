@@ -1,7 +1,7 @@
 <div class="w-full lg:w-1/3 p-4">
     <div class="pt-3 px-6 mb-6 bg-white rounded border-t-4 border-indigo-500 shadow">
         <div class="flex justify-between items-center pb-3">
-            <h3 class="font-medium">Derniers emprunt</h3>
+            <h3 class="font-medium">Derniers emprunts</h3>
             <span class="flex justify-center items-center w-6 h-6 rounded bg-indigo-50 text-indigo-500 text-xs">608</span>
         </div>
     </div>
