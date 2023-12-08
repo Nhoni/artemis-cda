@@ -31,7 +31,6 @@ class Publisher
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -43,7 +42,6 @@ class Publisher
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 

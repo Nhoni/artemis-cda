@@ -18,9 +18,14 @@ class Book
     public int $publisher_id;
 
     // Constructor
-    public function __construct(int $id, string $title, string $description, string $ISBN, int $author_id, int $publisher_id
-        )
-    {
+    public function __construct(
+        int $id,
+        string $title,
+        string $description,
+        string $ISBN,
+        int $author_id,
+        int $publisher_id
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -37,7 +42,6 @@ class Book
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -48,9 +52,8 @@ class Book
     public function setTitle($title)
     {
         $this->title = $title;
-
         return $this;
-    } 
+    }
 
     public function getDescription()
     {
@@ -59,9 +62,8 @@ class Book
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
-    } 
+    }
 
     public function getISBN()
     {
@@ -70,9 +72,8 @@ class Book
     public function setISBN($ISBN)
     {
         $this->ISBN = $ISBN;
-
         return $this;
-    } 
+    }
 
     public function getAuthor_id()
     {
@@ -81,7 +82,6 @@ class Book
     public function setAuthor_id($author_id)
     {
         $this->author_id = $author_id;
-
         return $this;
     }
 
@@ -92,36 +92,29 @@ class Book
     public function setPublisher_id($publisher_id)
     {
         $this->publisher_id = $publisher_id;
-
         return $this;
     }
 
     // Methods
     public function getAllBooks()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function getOneBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function addBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteBook()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
-
-
-
-
-
-
 }
 // Code interdit après l'accolade

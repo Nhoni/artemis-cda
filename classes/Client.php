@@ -17,12 +17,11 @@ class Client
 
     // Constructor
     public function __construct(
-        int $id, 
+        int $id,
         string $name,
         string $email,
         string $deposit
-        )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
@@ -37,7 +36,6 @@ class Client
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -49,7 +47,6 @@ class Client
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -61,7 +58,6 @@ class Client
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -72,30 +68,29 @@ class Client
     public function setDeposit($deposit)
     {
         $this->deposit = $deposit;
-
         return $this;
     }
 
     // Methods
     public function getAllClients()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function getOneClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function addClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteClient()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
 }
 //Pas de code ici

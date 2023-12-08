@@ -27,8 +27,7 @@ class Loan
         DateTime $start_date,
         DateTime $end_date,
         bool $returned
-        )
-    {
+    ) {
         $this->id = $id;
         $this->client_id = $client_id;
         $this->Loan_id = $Loan_id;
@@ -45,7 +44,6 @@ class Loan
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -56,7 +54,6 @@ class Loan
     public function setClientId($client_id)
     {
         $this->client_id = $client_id;
-
         return $this;
     }
 
@@ -67,7 +64,6 @@ class Loan
     public function setLoanId($Loan_id)
     {
         $this->Loan_id = $Loan_id;
-
         return $this;
     }
 
@@ -78,7 +74,6 @@ class Loan
     public function setStartDate($start_date)
     {
         $this->start_date = $start_date;
-
         return $this;
     }
 
@@ -89,7 +84,6 @@ class Loan
     public function setEndDate($end_date)
     {
         $this->end_date = $end_date;
-
         return $this;
     }
 
@@ -100,30 +94,29 @@ class Loan
     public function setReturned($returned)
     {
         $this->returned = $returned;
-
         return $this;
     }
 
     // Methods
     public function getAllLoans()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function getOneLoan()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function addLoan()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editLoan()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteLoan()
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
 }
 //Pas de code ici

@@ -15,61 +15,59 @@ class Ebook extends Book
     public int $availability;
     public bool $isDownloadable;
 
-    
-    public function getIsAugmented()
+    // Constructor
+    public function __construct(
+        public int $id,
+        string $title,
+        string $description,
+        string $ISBN,
+        int $author_id,
+        int $publisher_id,
+        bool $isAugmented,
+        int $availability,
+        bool $isDownloadable
+    ) {
+        parent::__construct(
+            $id,
+            $title,
+            $description,
+            $ISBN,
+            $author_id,
+            $publisher_id
+        );
+        $this->isAugmented = $isAugmented;
+        $this->availability = $availability;
+        $this->isDownloadable = $isDownloadable;
+    }
+
+    // Methods
+    public function getIsAugmented(): bool
     {
         return $this->isAugmented;
     }
-
-    /**
-     * Set the value of isAugmented
-     *
-     * @return  self
-     */ 
-    public function setIsAugmented($isAugmented)
+    public function setIsAugmented($isAugmented): self
     {
         $this->isAugmented = $isAugmented;
-
         return $this;
     }
 
-    /**
-     * Get the value of availability
-     */ 
-    public function getAvailability()
+    public function getAvailability(): int
     {
         return $this->availability;
     }
-
-    /**
-     * Set the value of availability
-     *
-     * @return  self
-     */ 
-    public function setAvailability($availability)
+    public function setAvailability($availability): self
     {
         $this->availability = $availability;
-
         return $this;
     }
 
-    /**
-     * Get the value of isDownloadable
-     */ 
-    public function getIsDownloadable()
+    public function getIsDownloadable(): bool
     {
         return $this->isDownloadable;
     }
-
-    /**
-     * Set the value of isDownloadable
-     *
-     * @return  self
-     */ 
-    public function setIsDownloadable($isDownloadable)
+    public function setIsDownloadable($isDownloadable): self
     {
         $this->isDownloadable = $isDownloadable;
-
         return $this;
     }
 }

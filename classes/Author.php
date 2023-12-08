@@ -16,11 +16,10 @@ class Author
 
     // Constructor
     public function __construct(
-        int $id, 
+        int $id,
         string $name,
         string $bio
-        )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->bio = $bio;
@@ -34,7 +33,6 @@ class Author
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -45,7 +43,6 @@ class Author
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -56,30 +53,29 @@ class Author
     public function setBio($bio)
     {
         $this->bio = $bio;
-
         return $this;
     }
 
     // Methods
     public function getAllAuthors() // Read
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function getOneAuthor() // Read
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function addAuthor() // Create
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function editAuthor() // Update
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
     public function deleteAuthor() // Delete
     {
-        // Code pour récupérer tous les livres
+        // Code
     }
 }
 //Pas de code ici
