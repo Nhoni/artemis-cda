@@ -1,10 +1,15 @@
 <?php
+require_once 'vendor/autoload.php';
 
 include __DIR__ . '/templates/header.php';
 
+$faker = Faker\Factory::create('fr_FR');
+
+if(true) {
+
 // Connection à la base de données
 $pdo = new PDO(
-    'mysql:host=localhost;dbname=artemis;charset=utf8mb4', 
+    'mysql:host=localhost:3306  ;dbname=artemis;charset=utf8mb4', 
     'root', 
     '');
 
@@ -25,10 +30,10 @@ $pdo->query("CREATE TABLE Author (
 )");
 
 // Insertion d'exemples d'auteurs
-for ($i = 0; $i < 180; $i++) {
+for ($i = 1; $i <= 180; $i++) {
     $authorData = [
-        'name' => 'Auteur ' . $i,
-        'bio' => 'Bio de l\'auteur ' . $i,
+        'name' => $faker->name(),
+        'bio' => $faker->text(),
     ];
 
     $pdo->prepare("INSERT INTO Author (name, bio) VALUES (:name, :bio)")
@@ -42,9 +47,9 @@ $pdo->query("CREATE TABLE Publisher (
 )");
 
 // Insertion d'exemples d'éditeurs
-for ($i = 0; $i < 50; $i++) {
+for ($i = 1; $i <= 50; $i++) {
     $publisherData = [
-        'name' => 'Éditeur ' . $i,
+        'name' => $faker->company(),
     ];
 
     $pdo->prepare("INSERT INTO Publisher (name) VALUES (:name)")
@@ -64,11 +69,11 @@ $pdo->query("CREATE TABLE Book (
 )");
 
 // Insertion d'exemples de livres
-for ($i = 0; $i < 200; $i++) {
+for ($i = 1; $i <= 200; $i++) {
     $bookData = [
-        'title' => 'Titre du livre ' . $i,
-        'description' => 'Description du livre ' . $i,
-        'ISBN' => '1234567890123',
+        'title' => $faker->sentence(2),
+        'description' => $faker->text(),
+        'ISBN' => $faker->isbn13(),
         'author_id' => rand(1, 180),
         'publisher_id' => rand(1, 50),
     ];
@@ -86,10 +91,10 @@ $pdo->query("CREATE TABLE Client (
 )");
 
 // Insertion d'exemples de clients
-for ($i = 0; $i < 50; $i++) {
+for ($i = 1; $i <= 50; $i++) {
     $clientData = [
-        'name' => 'Client ' . $i,
-        'email' => 'client' . $i . '@gmail.com',
+        'name' => $faker->name(),
+        'email' => $faker->email(),
         'deposit' => rand(true, false)
     ];
 
@@ -110,7 +115,7 @@ $pdo->query("CREATE TABLE Loan (
 )");
 
 // Insertion d'exemples de prêts
-for ($i = 0; $i < 50; $i++) {
+for ($i = 1; $i <= 50; $i++) {
     $startTimestamp = rand(strtotime("-365 days"), time());
     $startDate = date("Y-m-d", $startTimestamp);
 
@@ -130,5 +135,7 @@ for ($i = 0; $i < 50; $i++) {
 }
 
 echo "Données fictives insérées avec succès.";
+
+}
 
 include __DIR__ . '/templates/footer.php';

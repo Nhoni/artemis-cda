@@ -7,6 +7,11 @@
 
 namespace Artemis;
 
+require __DIR__ . '/../controller/Database.php';
+
+use PDO;
+use Artemis\Database;
+
 class Book
 {
     // Properties
@@ -95,16 +100,24 @@ class Book
         return $this;
     }
 
-    // Methods
-    public function getAllBooks()
+
+    static public function getOneBook(int $id)
     {
-        // Code
+        $pdo = Database::getPDO();
+        $query = "SELECT
+                    Book.title AS BookTitle,
+                    Author.name AS AuthorName,
+                    Publisher.name AS PublisherName
+                FROM Book JOIN Author ON Book.author_id = Author.id
+                JOIN Publisher ON Book.publisher_id = Publisher.id
+                WHERE Book.id = $id;
+        ";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $book = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $book;
     }
-    public function getOneBook()
-    {
-        // Code
-    }
-    public function addBook()
+    static public function addBook()
     {
         // Code
     }

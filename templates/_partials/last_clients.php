@@ -1,8 +1,19 @@
+<?php
+
+require_once __DIR__ . '/../../src/controller/Database.php';
+
+use Artemis\Database;
+
+$clients = Database::getAll('Client');
+$last = array_reverse($clients);
+
+?>
+
 <div class="w-full lg:w-1/3 p-4">
     <div class="pt-3 px-6 mb-6 bg-white rounded border-t-4 border-indigo-500 shadow">
         <div class="flex justify-between items-center pb-3">
             <h3 class="font-medium">Derniers clients</h3>
-            <span class="flex justify-center items-center w-6 h-6 rounded bg-indigo-50 text-indigo-500 text-xs">53</span>
+            <span class="flex justify-center items-center w-6 h-6 rounded bg-indigo-50 text-indigo-500 text-xs"><?= count($clients); ?></span>
         </div>
     </div>
     <div>
@@ -15,31 +26,19 @@
             <span>Ajouter un client</span>
         </a>
     </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
-        <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Client depuis 36 mois</span>
+    <?php
+    for ($i = 0; $i < 3; $i++) {
+        echo '
+        <div class="p-6 mb-4 bg-white rounded shadow">
+            <div class="flex justify-between items-center mb-6">
+                <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">n°' . $last[$i]['id'] . '</span>
+            </div>
+            <div class="mb-4">
+                <h3 class="mb-2 font-medium">' . $last[$i]['name'] . '</h3>
+                <p class="text-sm text-gray-500">' . $last[$i]['email'] . '</p>
+            </div>
         </div>
-        <div class="mb-4">
-            <h3 class="mb-2 font-medium">Client 1</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
-        </div>
-    </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
-        <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Client depuis 6 mois</span>
-        </div>
-        <div class="mb-4">
-            <h3 class="mb-2 font-medium">Client 2</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
-        </div>
-    </div>
-    <div class="p-6 mb-4 bg-white rounded shadow">
-        <div class="flex justify-between items-center mb-6">
-            <span class="inline-block py-1 px-2 bg-blue-50 text-xs text-blue-500 rounded-full">Client depuis 3 mois</span>
-        </div>
-        <div class="mb-4">
-            <h3 class="mb-2 font-medium">Client 3</h3>
-            <p class="text-sm text-gray-500">Decription du livre</p>
-        </div>
-    </div>
+        ';
+    }
+    ?>
 </div>
