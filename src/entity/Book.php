@@ -7,7 +7,7 @@
 
 namespace Artemis;
 
-require __DIR__ . '/../controller/Database.php';
+require_once __DIR__ . '/../controller/Database.php';
 
 use PDO;
 use Artemis\Database;
@@ -24,14 +24,12 @@ class Book
 
     // Constructor
     public function __construct(
-        int $id,
         string $title,
         string $description,
         string $ISBN,
         int $author_id,
         int $publisher_id
     ) {
-        $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->ISBN = $ISBN;
@@ -100,12 +98,54 @@ class Book
         return $this;
     }
 
+    static public function searchBooks($keyword)
+    {
+        $pdo = Database::getPDO();
+        $query = "SELECT
+                    Book.id AS BookId,
+                    Book.title AS BookTitle,
+                    Book.description AS BookDescription,
+                    Book.isbn AS BookIsbn,
+                    Author.name AS AuthorName,
+                    Publisher.name AS PublisherName
+                FROM Book JOIN Author ON Book.author_id = Author.id
+                JOIN Publisher ON Book.publisher_id = Publisher.id
+                WHERE Book.title LIKE '%$keyword%'
+                ORDER BY Book.title ASC;
+                ";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $books;
+    }
+
+    static public function getAllBooks()
+    {
+        $pdo = Database::getPDO();
+        $query = "SELECT
+                    Book.id AS BookId,
+                    Book.title AS BookTitle,
+                    Book.description AS BookDescription,
+                    Book.isbn AS BookIsbn,
+                    Author.name AS AuthorName,
+                    Publisher.name AS PublisherName
+                FROM Book JOIN Author ON Book.author_id = Author.id
+                JOIN Publisher ON Book.publisher_id = Publisher.id
+                ORDER BY Book.title ASC;
+                ";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $books;
+    }
 
     static public function getOneBook(int $id)
     {
         $pdo = Database::getPDO();
         $query = "SELECT
                     Book.title AS BookTitle,
+                    Book.description AS BookDescription,
+                    Book.isbn AS BookIsbn,
                     Author.name AS AuthorName,
                     Publisher.name AS PublisherName
                 FROM Book JOIN Author ON Book.author_id = Author.id
@@ -117,17 +157,61 @@ class Book
         $book = $stmt->fetch(PDO::FETCH_ASSOC);
         return $book;
     }
-    static public function addBook()
-    {
-        // Code
+    static public function addBook(
+        $title,
+        $description,
+        $ISBN,
+        $author_id,
+        $publisher_id
+    ) {
+
+        // Objectif : Ajouter un livre dans la base de données
+        // Formulaire [X]
+        // Traiter les données et Instance de la classe (objet Book) [X]
+        // Préparation pour la persistance [X]
+            // Connexion + Query [X]
+            // Prepare [X]
+            // BindParam du statement [X]
+            // Execute [X]
+            // Redirection HTTP [X]
+
+        $pdo = Database::getPDO();
+        $query = "INSERT INTO Book (
+                title, description, ISBN, author_id, publisher_id
+                ) VALUES (
+                    :title, :description, :ISBN, :author_id, :publisher_id
+                );";
+
+        $stmt = $pdo->prepare($query);
+        
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->bindParam(':ISBN', $ISBN, PDO::PARAM_STR);
+        $stmt->bindParam(':author_id', $author_id, PDO::PARAM_INT);
+        $stmt->bindParam(':publisher_id', $publisher_id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $url = 'index.php?message=addbook';
+        header("Location: $url");
     }
+
+
+
     public function editBook()
     {
         // Code
     }
-    public function deleteBook()
+    static public function deleteBook($id)
     {
-        // Code
+        $pdo = Database::getPDO();
+        $query = "DELETE FROM Book WHERE id = $id;";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        $url = 'index.php';
+        header("Location: $url");
+
     }
 }
 // Code interdit après l'accolade
