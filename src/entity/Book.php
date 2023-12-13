@@ -158,6 +158,8 @@ class Book
         $pdo = Database::getPDO();
         $query = "SELECT
                     Book.id AS BookId,
+                    Book.author_id AS AuthorId,
+                    Book.publisher_id AS PublisherId,
                     Book.title AS BookTitle,
                     Book.description AS BookDescription,
                     Book.isbn AS BookIsbn,

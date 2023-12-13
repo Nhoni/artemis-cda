@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $currentUrl = $_SERVER['PHP_SELF'];
 $pageName = pathinfo($currentUrl, PATHINFO_FILENAME);
@@ -6,10 +6,10 @@ $pageName = pathinfo($currentUrl, PATHINFO_FILENAME);
 $id = '';
 $type = '';
 
-if($pageName === 'book') {
+if ($pageName === 'book') {
     $id = $book['BookId'];
     $type = 'book';
-} elseif($pageName === 'clients') {
+} elseif ($pageName === 'clients') {
     $id = $client['id'];
     $type = 'client';
 }
@@ -42,20 +42,9 @@ if($pageName === 'book') {
                         <input type="hidden" name="type" value="<?= !empty($type) ? $type : 'Undefined' ?>">
                         <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Je supprime</button>
                     </form>
-                    <button type="button" onclick="hideModel('delete')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
+                    <button type="button" onclick="hideModal('delete')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<script>
-    function showModal(type) {
-        document.getElementById('modal-'+type).classList.remove('hidden')
-    }
-
-    function hideModel(type) {
-        document.getElementById('modal-'+type).classList.add('hidden')
-    }
-</script>

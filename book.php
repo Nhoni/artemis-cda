@@ -69,7 +69,7 @@ include __DIR__ . '/templates/hero-book.php';
     </div>
 
     <div class="my-6 flex items-center justify-start gap-x-6">
-        <button type="button" onclick="showModal('delete')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Mettre à jour</button>
+        <button type="button" onclick="showModal('edit')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Mettre à jour</button>
         <button type="button" onclick="showModal('delete')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Supprimer</button>
     </div>
 
@@ -100,7 +100,7 @@ include __DIR__ . '/templates/hero-book.php';
                             <input type="hidden" name="type" value="book">
                             <button type="submit" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Je supprime</button>
                         </form>
-                        <button type="button" onclick="hideModel()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
+                        <button type="button" onclick="hideModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Annuler</button>
                     </div>
                 </div>
             </div>
@@ -109,6 +109,8 @@ include __DIR__ . '/templates/hero-book.php';
 </div>
 
 <?php
+
+include __DIR__ . '/templates/_partials/modal_edit.php';
 
 include __DIR__ . '/templates/_partials/modal_delete.php';
 
