@@ -15,88 +15,88 @@ use Artemis\Database;
 class Book
 {
     // Properties
-    private int $id;
-    private string $title;
-    private string $description;
-    private string $ISBN;
-    private int $author_id;
-    private int $publisher_id;
+        private int $id;
+        private string $title;
+        private string $description;
+        private string $ISBN;
+        private int $author_id;
+        private int $publisher_id;
 
     // Constructor
-    public function __construct(
-        string $title,
-        string $description,
-        string $ISBN,
-        int $author_id,
-        int $publisher_id
-    ) {
-        $this->title = $title;
-        $this->description = $description;
-        $this->ISBN = $ISBN;
-        $this->author_id = $author_id;
-        $this->publisher_id = $publisher_id;
-    }
+        public function __construct(
+            string $title,
+            string $description,
+            string $ISBN,
+            int $author_id,
+            int $publisher_id
+        ) {
+            $this->title = $title;
+            $this->description = $description;
+            $this->ISBN = $ISBN;
+            $this->author_id = $author_id;
+            $this->publisher_id = $publisher_id;
+        }
 
     // Getters & Setters
-    public function getId()
-    {
-        return $this->id;
-    }
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+        public function getId()
+        {
+            return $this->id;
+        }
+        public function setId($id)
+        {
+            $this->id = $id;
+            return $this;
+        }
 
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
+        public function getTitle()
+        {
+            return $this->title;
+        }
+        public function setTitle($title)
+        {
+            $this->title = $title;
+            return $this;
+        }
 
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    public function setDescription($description)
-    {
-        $this->description = $description;
-        return $this;
-    }
+        public function getDescription()
+        {
+            return $this->description;
+        }
+        public function setDescription($description)
+        {
+            $this->description = $description;
+            return $this;
+        }
 
-    public function getISBN()
-    {
-        return $this->ISBN;
-    }
-    public function setISBN($ISBN)
-    {
-        $this->ISBN = $ISBN;
-        return $this;
-    }
+        public function getISBN()
+        {
+            return $this->ISBN;
+        }
+        public function setISBN($ISBN)
+        {
+            $this->ISBN = $ISBN;
+            return $this;
+        }
 
-    public function getAuthor_id()
-    {
-        return $this->author_id;
-    }
-    public function setAuthor_id($author_id)
-    {
-        $this->author_id = $author_id;
-        return $this;
-    }
+        public function getAuthor_id()
+        {
+            return $this->author_id;
+        }
+        public function setAuthor_id($author_id)
+        {
+            $this->author_id = $author_id;
+            return $this;
+        }
 
-    public function getPublisher_id()
-    {
-        return $this->publisher_id;
-    }
-    public function setPublisher_id($publisher_id)
-    {
-        $this->publisher_id = $publisher_id;
-        return $this;
-    }
+        public function getPublisher_id()
+        {
+            return $this->publisher_id;
+        }
+        public function setPublisher_id($publisher_id)
+        {
+            $this->publisher_id = $publisher_id;
+            return $this;
+        }
 
     /**
      * Méthode statique permettant de rechercher un livre
@@ -130,7 +130,6 @@ class Book
      */
     static public function getAllBooks(): array
     {
-        $pdo = Database::getPDO();
         $query = "SELECT
                     Book.id AS BookId,
                     Book.title AS BookTitle,
@@ -142,9 +141,7 @@ class Book
                 JOIN Publisher ON Book.publisher_id = Publisher.id
                 ORDER BY Book.title ASC;
                 ";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $books = Database::executePDO($query, 'all');
         return $books;
     }
 
@@ -155,7 +152,6 @@ class Book
      */
     static public function getOneBook(int $id): array
     {
-        $pdo = Database::getPDO();
         $query = "SELECT
                     Book.id AS BookId,
                     Book.author_id AS AuthorId,
@@ -169,9 +165,7 @@ class Book
                 JOIN Publisher ON Book.publisher_id = Publisher.id
                 WHERE Book.id = $id;
         ";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
-        $book = $stmt->fetch(PDO::FETCH_ASSOC);
+        $book = Database::executePDO($query, 'one');
         return $book;
     }
 
@@ -206,9 +200,28 @@ class Book
 
 
 
-    public function editBook()
+    public function editBook(int $id)
     {
-        // Code
+        $pdo = Database::getPDO();
+        $query = "UPDATE Book 
+                SET title = :title, 
+                description = :description, 
+                ISBN = :ISBN, 
+                author_id = :author_id, 
+                publisher_id = :publisher_id 
+                WHERE id = $id;
+                ";
+
+
+        $stmt = $pdo->prepare($query);
+        
+        $stmt->bindParam(':title', $this->getTitle(), PDO::PARAM_STR);
+        $stmt->bindParam(':description', $this->getDescription(), PDO::PARAM_STR);
+        $stmt->bindParam(':ISBN', $this->getISBN(), PDO::PARAM_STR);
+        $stmt->bindParam(':author_id', $this->getAuthor_id(), PDO::PARAM_INT);
+        $stmt->bindParam(':publisher_id', $this->getPublisher_id(), PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
 }

@@ -8,24 +8,66 @@
 namespace Artemis;
 
 use PDO;
+use PDOException;
 
 class Database
 {
-    private $host = 'localhost';
-    private $dbname = 'artemis';
-    private $username = 'mba-m2';
-    private $password = '';
-    private $charset = 'utf8mb4';
+    private static $host = 'localhost:3306';
+    private static $dbname = 'artemis';
+    private static $username = 'root';
+    private static $password = '';
+    private static $charset = 'utf8mb4';
+    private static $pdo;
 
     // Connexion
-    static public function getPDO(): object
+    static public function getPDO(): PDO
     {
-        $pdo = new PDO(
-            'mysql:host=localhost:3306;dbname=artemis;charset=utf8mb4', 
-            'root',
-            ''
-        );
-        return $pdo;
+        if (!isset(self::$pdo)) {
+            try {
+                self::$pdo = new PDO(
+                    'mysql:host=' . self::$host . ';dbname=' . self::$dbname . ';charset=' . self::$charset,
+                    self::$username,
+                    self::$password,
+                    [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                        PDO::ATTR_EMULATE_PREPARES => false
+                    ]
+                );
+    
+            } catch (PDOException $e) {
+                echo 'Erreur de connexion à la base de données : ' . $e->getMessage();
+            }
+        }
+        
+        return self::$pdo;
+
+
+    }
+
+    /**
+     * Methode global d'execution de requete pour récupérer un ou plusieurs éléments
+     * La connexion PDO se fera à pres la définition de la requete SQL dans la méthode
+     * de la classe qui l'appelle. Suite à cela, la méthode executePDO() retournera le
+     * résultat de la requête sous forme de tableau associatif.
+     * @param string $query
+     * @param string $fetch
+     * @return array
+     */
+    static public function executePDO(string $query, string $fetch): array
+    {
+        $pdo = Database::getPDO(); // Instanciation de l'objet PDO
+        $stmt = $pdo->prepare($query); // L'objet PDO se prépare à executer la requête
+        $stmt->execute(); // L'objet PDO execute la requête
+        if ($fetch) {
+            if($fetch == 'one') {
+                $result = $stmt->fetch(PDO::FETCH_ASSOC); // PDO créer un tableau associatif
+                return $result;
+            } elseif($fetch == 'all'){
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // PDO créer un tableau associatif
+                return $result;
+            }
+        }
     }
 
     /**

@@ -1,3 +1,8 @@
+<?php
+
+
+
+?>
 <div>
     <nav class="lg:hidden py-6 px-6 bg-gray-800">
         <div class="flex items-center justify-between">

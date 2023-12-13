@@ -10,7 +10,7 @@ $loans = Loan::getAllLoans();
 $today = date("Y-m-d");
 
 $inProgress = [];
-$endSoon = [];
+$toReturn = [];
 $isBack = [];
 
 foreach ($loans as $loan) {
@@ -21,15 +21,18 @@ foreach ($loans as $loan) {
         if ($today <= $loanEndDate) {
             $inProgress[] = $loan;
         } else {
-            $endSoon[] = $loan;
+            $toReturn[] = $loan;
         }
     } else {
         $isBack[] = $loan;
     }
 }
 
-$loanStatusLabels = ['En cours', 'À rendre', 'Rendu'];
-$loanStatusColors = ['indigo', 'red', 'green'];
+$loanStatus = [
+    ['label' => 'En cours', 'color' => 'indigo',],
+    ['label' => 'À rendre', 'color' => 'red',],
+    ['label' => 'Rendu', 'color' => 'green',]
+];
 
 include __DIR__ . '/templates/header.php';
 include __DIR__ . '/templates/hero-loans.php';
@@ -40,10 +43,10 @@ include __DIR__ . '/templates/hero-loans.php';
     <div class="container px-4 mx-auto">
         <div class="flex flex-wrap -m-4">
             <?php
-            for ($i = 0; $i < count($loanStatusLabels); $i++) {
-                $title = $loanStatusLabels[$i];
-                $color = $loanStatusColors[$i];
-                $array = ($i === 0) ? $inProgress : (($i === 1) ? $endSoon : $isBack);
+            for ($i = 0; $i < 3; $i++) {
+                $title = $loanStatus[$i]['label'];
+                $color = $loanStatus[$i]['color'];
+                $array = ($i === 0) ? $inProgress : (($i === 1) ? $toReturn : $isBack);
                 include __DIR__ . '/templates/_partials/loans_column.php';
             }
             ?>
