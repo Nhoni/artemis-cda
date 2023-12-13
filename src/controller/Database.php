@@ -61,7 +61,31 @@ class Database
         return $data;
     }
 
+    /**
+     * Méthode global de suppression d'un seul
+     * élément d'une entité dans la BDD
+     * @param string $entity
+     * @param int $id
+     * @param string $relation
+     * @return array
+     */
+    static public function delete(string $entity, int $id, $relation = null): void
+    {
+        $pdo = Database::getPDO();
 
+        if ($relation) {
+            $capitalized = ucfirst($relation); // ucfirst = Upper Case First
+            $foreign = strtolower($entity) . '_id'; // strtolower = Lower Case
+            $query = "DELETE FROM $capitalized WHERE $foreign = $id;";
+            $stmt = $pdo->prepare($query); 
+            $stmt->execute(); 
+        }
+
+        $capitalized = ucfirst($entity);
+        $query = "DELETE FROM $capitalized WHERE id = $id;";
+        $stmt = $pdo->prepare($query); 
+        $stmt->execute(); 
+    }
 
 
 }

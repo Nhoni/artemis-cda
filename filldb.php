@@ -9,12 +9,11 @@ if(true) {
 
 // Connection à la base de données
 $pdo = new PDO(
-    'mysql:host=localhost:3306  ;dbname=artemis;charset=utf8mb4', 
+    'mysql:host=localhost:3606;dbname=artemis;charset=utf8mb4', 
     'root', 
     '');
-    
-    $pdo->query("CREATE DATABASE IF NOT EXISTS artemis");
 
+$pdo->query("CREATE DATABASE IF NOT EXISTS artemis");
 
 // Suppression de toutes les tables
 $pdo->query("SET FOREIGN_KEY_CHECKS = 0");

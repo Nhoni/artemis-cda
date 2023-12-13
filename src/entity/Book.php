@@ -15,12 +15,12 @@ use Artemis\Database;
 class Book
 {
     // Properties
-    public int $id;
-    public string $title;
-    public string $description;
-    public string $ISBN;
-    public int $author_id;
-    public int $publisher_id;
+    private int $id;
+    private string $title;
+    private string $description;
+    private string $ISBN;
+    private int $author_id;
+    private int $publisher_id;
 
     // Constructor
     public function __construct(
@@ -98,7 +98,12 @@ class Book
         return $this;
     }
 
-    static public function searchBooks($keyword)
+    /**
+     * Méthode statique permettant de rechercher un livre
+     * @param string $keyword
+     * @return array
+     */
+    static public function searchBooks($keyword): array
     {
         $pdo = Database::getPDO();
         $query = "SELECT
@@ -119,7 +124,11 @@ class Book
         return $books;
     }
 
-    static public function getAllBooks()
+    /**
+     * Méthode statique permettant de récupérer tous les livres
+     * @return array
+     */
+    static public function getAllBooks(): array
     {
         $pdo = Database::getPDO();
         $query = "SELECT
@@ -139,10 +148,16 @@ class Book
         return $books;
     }
 
-    static public function getOneBook(int $id)
+    /**
+     * Méthode statique permettant de récupérer un livre
+     * @param int $id
+     * @return array
+     */
+    static public function getOneBook(int $id): array
     {
         $pdo = Database::getPDO();
         $query = "SELECT
+                    Book.id AS BookId,
                     Book.title AS BookTitle,
                     Book.description AS BookDescription,
                     Book.isbn AS BookIsbn,
@@ -157,24 +172,18 @@ class Book
         $book = $stmt->fetch(PDO::FETCH_ASSOC);
         return $book;
     }
-    static public function addBook(
-        $title,
-        $description,
-        $ISBN,
-        $author_id,
-        $publisher_id
-    ) {
 
-        // Objectif : Ajouter un livre dans la base de données
-        // Formulaire [X]
-        // Traiter les données et Instance de la classe (objet Book) [X]
-        // Préparation pour la persistance [X]
-            // Connexion + Query [X]
-            // Prepare [X]
-            // BindParam du statement [X]
-            // Execute [X]
-            // Redirection HTTP [X]
-
+    /**
+     * Méthode statique permettant d'ajouter un livre
+     * @param string $title
+     * @param string $description
+     * @param string $ISBN
+     * @param int $author_id
+     * @param int $publisher_id
+     * @return void
+     */
+    static public function addBook($title, $description, $ISBN, $author_id, $publisher_id)
+    {
         $pdo = Database::getPDO();
         $query = "INSERT INTO Book (
                 title, description, ISBN, author_id, publisher_id
@@ -191,9 +200,6 @@ class Book
         $stmt->bindParam(':publisher_id', $publisher_id, PDO::PARAM_INT);
 
         $stmt->execute();
-
-        $url = 'index.php?message=addbook';
-        header("Location: $url");
     }
 
 
@@ -202,16 +208,6 @@ class Book
     {
         // Code
     }
-    static public function deleteBook($id)
-    {
-        $pdo = Database::getPDO();
-        $query = "DELETE FROM Book WHERE id = $id;";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
 
-        $url = 'index.php';
-        header("Location: $url");
-
-    }
 }
 // Code interdit après l'accolade
