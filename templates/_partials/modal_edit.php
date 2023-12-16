@@ -14,7 +14,8 @@ $publishers = Database::getAll('Publisher');
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <form>
+                <form action="edit.php" method="post">
+                    <input type="hidden" name="id" value="<?= !empty($book['BookId']) ? $book['BookId'] : 'Undefined' ?>" />
                     <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                         <div class="space-y-12">
                             <div class="border-b border-gray-900/10 pb-12">
@@ -38,39 +39,31 @@ $publishers = Database::getAll('Publisher');
                                     <div class="sm:col-span-8">
                                         <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
                                         <div class="mt-2">
-                                            <textarea id="description" name="description" type="text" rows="5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                                <?= !empty($book['BookDescription']) ? $book['BookDescription'] : 'Undefined' ?>
-                                            </textarea>
+                                            <textarea id="description" name="description" type="text" rows="5" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"><?= !empty($book['BookDescription']) ? $book['BookDescription'] : 'Undefined' ?></textarea>
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3 sm:col-start-1">
                                         <label for="author" class="block text-sm font-medium leading-6 text-gray-900">Auteur(e)</label>
                                         <div class="mt-2">
-                                            <input list="authors" name="author" id="author" placeholder="<?= !empty($book['AuthorName']) ? $book['AuthorName'] : 'Undefined' ?>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            <datalist id="authors">
-                                                <option value="<?= !empty($book['AuthorId']) ? $book['AuthorId'] : 'Undefined' ?>">
-                                                    <?= !empty($book['AuthorName']) ? $book['AuthorName'] : 'Undefined' ?>
-                                                </option>
+                                            <select name="author" id="author" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option value="<?= !empty($book['AuthorId']) ? $book['AuthorId'] : 'Undefined' ?>"><?= !empty($book['AuthorName']) ? $book['AuthorName'] : 'Undefined' ?></option>
                                                 <?php foreach ($authors as $author) : ?>
                                                     <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
                                                 <?php endforeach; ?>
-                                            </datalist>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
                                         <label for="editor" class="block text-sm font-medium leading-6 text-gray-900">Maison d'édition</label>
                                         <div class="mt-2">
-                                        <input list="publishers" name="publisher" id="publisher" placeholder="<?= !empty($book['PublisherName']) ? $book['PublisherName'] : 'Undefined' ?>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                            <datalist id="publishers">
-                                                <option value="<?= !empty($book['PublisherId']) ? $book['PublisherId'] : 'Undefined' ?>">
-                                                    <?= !empty($book['PublisherName']) ? $book['PublisherName'] : 'Undefined' ?>
-                                                </option>
+                                            <select name="publisher" id="publisher" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option value="<?= !empty($book['PublisherId']) ? $book['PublisherId'] : 'Undefined' ?>"><?= !empty($book['PublisherName']) ? $book['PublisherName'] : 'Undefined' ?></option>
                                                 <?php foreach ($publishers as $publisher) : ?>
                                                     <option value="<?= $publisher['id'] ?>"><?= $publisher['name'] ?></option>
                                                 <?php endforeach; ?>
-                                            </datalist>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

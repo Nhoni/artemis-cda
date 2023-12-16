@@ -18,15 +18,24 @@
         </a>
     </div>
 
-    <?php foreach ($array as $loan): ?>
+    <?php foreach ($array as $loan) : ?>
         <div class="p-6 mb-4 bg-white rounded shadow">
             <div class="flex justify-between items-center mb-6">
-                <span class="inline-block py-1 px-2 bg-<?= $color; ?>-50 text-xs text-dark-500 rounded-full"><?= date_format(date_create($loan['LoanStartDate']), "d/m/Y") ?></span>
+                <span class="inline-block py-1 px-2 bg-<?= $color; ?>-50 text-xs text-dark-500 rounded-full"><?= date_format(date_create($loan['LoanEndDate']), "d/m/Y") ?></span>
             </div>
             <div class="mb-4">
                 <h3 class="mb-2 font-medium"><?= $loan['BookTitle'] ?></h3>
                 <p class="text-sm text-gray-500">Emprunté par <?= $loan['ClientName'] ?></p>
                 <p class="text-sm text-gray-500">Depuis le <?= date_format(date_create($loan['LoanStartDate']), "d/m/Y") ?></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-gray-50 pt-4">
+                <?php 
+                    if ($loan['LoanStatus'] == 0) {
+                        echo '<a href="edit.php?id=' . $loan['LoanId'] . '&type=loan&action=returned" class="py-2 px-3 bg-indigo-500 hover:bg-indigo-600 rounded text-xs text-white transition duration-200">Rendu</a>';
+                    } else {
+                        echo '<a href="edit.php?id=' . $loan['LoanId'] . '&type=loan&action=archived" class="py-2 px-3 bg-gray-500 hover:bg-gray-600 rounded text-xs text-white transition duration-200">Archiver</a>';
+                    }
+                ?>
             </div>
         </div>
     <?php endforeach; ?>

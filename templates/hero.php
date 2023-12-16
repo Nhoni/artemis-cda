@@ -6,7 +6,7 @@
                     <h3 class="mb-2 text-6xl font-medium text-white">
                         <span>Artemis</span>
                     </h3>
-                    <p class="text-xl font-medium text-blue-100">Bibliothèque Malcolm X</p>
+                    <p class="text-xl font-medium text-blue-100">Gestionnaire de bibliothèque</p>
                 </div>
                 <div class="relative w-full md:w-1/2 px-12">
                     <img class="lg:absolute top-0 lg:mr-12 right-0 lg:-mt-24 lg:h-80 object-cover" src="artemis-assets/images/chart-folder.png" alt="">
